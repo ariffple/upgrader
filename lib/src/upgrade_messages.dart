@@ -586,7 +586,7 @@ class UpgraderMessages {
         break;
       case 'en':
       default:
-        message = 'Update Now';
+        message = 'UPDATE NOW';
         break;
     }
     return message;

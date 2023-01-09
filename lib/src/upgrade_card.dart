@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:recase/recase.dart';
 
 /// A widget to display the upgrade card.
 class UpgradeCard extends UpgradeBase {
@@ -94,7 +95,7 @@ class UpgradeCard extends UpgradeBase {
                         if (upgrader.showIgnore)
                           TextButton(
                               child: Text(upgrader.messages.message(
-                                      UpgraderMessage.buttonTitleIgnore) ??
+                                      UpgraderMessage.buttonTitleIgnore)?.titleCase ??
                                   ''),
                               onPressed: () {
                                 // Save the date/time as the last time alerted.
@@ -106,7 +107,7 @@ class UpgradeCard extends UpgradeBase {
                         if (upgrader.showLater)
                           TextButton(
                               child: Text(upgrader.messages.message(
-                                      UpgraderMessage.buttonTitleLater) ??
+                                      UpgraderMessage.buttonTitleLater)?.titleCase ??
                                   ''),
                               onPressed: () {
                                 // Save the date/time as the last time alerted.
@@ -117,7 +118,7 @@ class UpgradeCard extends UpgradeBase {
                               }),
                         TextButton(
                             child: Text(upgrader.messages.message(
-                                    UpgraderMessage.buttonTitleUpdate) ??
+                                    UpgraderMessage.buttonTitleUpdate)?.titleCase ??
                                 ''),
                             onPressed: () {
                               // Save the date/time as the last time alerted.
