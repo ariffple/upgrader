@@ -444,16 +444,18 @@ class Upgrader {
   bool belowMinAppVersion() {
     var rv = false;
 
-    final minVersion = Version.parse(minAppVersion!);
-    final installedVersion = Version.parse(_installedVersion!);
-    final appStoreVersion = Version.parse(_appStoreVersion!);
+    final minVersion = minAppVersion != null ? Version.parse(minAppVersion!) : null;
+    final installedVersion = _installedVersion != null ? Version.parse(_installedVersion!) : null;
+    final appStoreVersion = _appStoreVersion != null ? Version.parse(_appStoreVersion!) : null;
     try {
-      if (appStoreVersion.major > installedVersion.major) {
-        rv = true;
-      } else if (appStoreVersion.minor > installedVersion.minor) {
-        rv = true;
-      } else {
+      if (installedVersion != null && minVersion != null) {
         rv = installedVersion < minVersion;
+      } else if (appStoreVersion != null && installedVersion != null) {
+        if (appStoreVersion.major > installedVersion.major) {
+          rv = true;
+        } else if (appStoreVersion.minor > installedVersion.minor) {
+          rv = true;
+        }
       }
     } catch (e) {
       print(e);
