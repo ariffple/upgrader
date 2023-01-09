@@ -51,13 +51,13 @@ Upgrader _sharedInstance = Upgrader();
 /// A class to configure the upgrade dialog.
 class Upgrader {
   /// Provide a upgrade now text override.
-  final String? upgradeNowText;
+  final String? updateNowText;
 
   /// Provide a upgrade later text override.
-  final String? upgradeLaterText;
+  final String? updateLaterText;
 
   /// Provide a ignore upgrade text override.
-  final String? ignoreUpgradeText;
+  final String? ignoreUpdateText;
 
   /// Provide an Appcast that can be replaced for mock testing.
   final Appcast? appcast;
@@ -156,9 +156,9 @@ class Upgrader {
   final notInitializedExceptionMessage = 'initialize() not called. Must be called first.';
 
   Upgrader({
-    this.upgradeNowText,
-    this.upgradeLaterText,
-    this.ignoreUpgradeText,
+    this.updateNowText,
+    this.updateLaterText,
+    this.ignoreUpdateText,
     this.appcastConfig,
     this.appcast,
     UpgraderMessages? messages,
@@ -608,9 +608,9 @@ class Upgrader {
         ],
       )),
       actions: <Widget>[
-        if (showIgnore) TextButton(child: Text(messages.message(UpgraderMessage.buttonTitleIgnore)!), onPressed: () => onUserIgnored(context, true)),
-        if (showLater) TextButton(child: Text(messages.message(UpgraderMessage.buttonTitleLater)!), onPressed: () => onUserLater(context, true)),
-        TextButton(child: Text(messages.message(UpgraderMessage.buttonTitleUpdate)!), onPressed: () => onUserUpdated(context, !blocked())),
+        if (showIgnore) TextButton(child: Text(ignoreUpdateText ?? messages.buttonTitleIgnore ?? messages.message(UpgraderMessage.buttonTitleIgnore)!), onPressed: () => onUserIgnored(context, true)),
+        if (showLater) TextButton(child: Text(updateLaterText ?? messages.message(UpgraderMessage.buttonTitleLater)!), onPressed: () => onUserLater(context, true)),
+        TextButton(child: Text(updateNowText ?? messages.message(UpgraderMessage.buttonTitleUpdate)!), onPressed: () => onUserUpdated(context, !blocked())),
       ],
     );
   }
@@ -643,9 +643,9 @@ class Upgrader {
         ],
       ),
       actions: <Widget>[
-        if (showIgnore) CupertinoDialogAction(child: Text(messages.message(UpgraderMessage.buttonTitleIgnore)!), onPressed: () => onUserIgnored(context, true)),
-        if (showLater) CupertinoDialogAction(child: Text(messages.message(UpgraderMessage.buttonTitleLater)!), onPressed: () => onUserLater(context, true)),
-        CupertinoDialogAction(isDefaultAction: true, child: Text(messages.message(UpgraderMessage.buttonTitleUpdate)!), onPressed: () => onUserUpdated(context, !blocked())),
+        if (showIgnore) CupertinoDialogAction(child: Text(ignoreUpdateText ?? messages.message(UpgraderMessage.buttonTitleIgnore)!), onPressed: () => onUserIgnored(context, true)),
+        if (showLater) CupertinoDialogAction(child: Text(updateLaterText ?? messages.message(UpgraderMessage.buttonTitleLater)!), onPressed: () => onUserLater(context, true)),
+        CupertinoDialogAction(isDefaultAction: true, child: Text(updateNowText ?? messages.message(UpgraderMessage.buttonTitleUpdate)!), onPressed: () => onUserUpdated(context, !blocked())),
       ],
     );
   }

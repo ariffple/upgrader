@@ -78,7 +78,7 @@ class UpgradeCard extends UpgradeBase {
                       actions: <Widget>[
                         if (upgrader.showIgnore)
                           TextButton(
-                              child: Text(upgrader.ignoreUpgradeText ?? upgrader.messages.message(UpgraderMessage.buttonTitleIgnore)?.titleCase ?? ''),
+                              child: Text(upgrader.ignoreUpdateText ?? upgrader.messages.message(UpgraderMessage.buttonTitleIgnore)?.titleCase ?? ''),
                               onPressed: () {
                                 // Save the date/time as the last time alerted.
                                 upgrader.saveLastAlerted();
@@ -88,7 +88,7 @@ class UpgradeCard extends UpgradeBase {
                               }),
                         if (upgrader.showLater)
                           TextButton(
-                              child: Text(upgrader.upgradeLaterText ?? upgrader.messages.message(UpgraderMessage.buttonTitleLater)?.titleCase ?? ''),
+                              child: Text(upgrader.updateLaterText ?? upgrader.messages.message(UpgraderMessage.buttonTitleLater)?.titleCase ?? ''),
                               onPressed: () {
                                 // Save the date/time as the last time alerted.
                                 upgrader.saveLastAlerted();
@@ -97,7 +97,7 @@ class UpgradeCard extends UpgradeBase {
                                 state.forceUpdateState();
                               }),
                         TextButton(
-                            child: Text(upgrader.upgradeNowText ?? upgrader.messages.message(UpgraderMessage.buttonTitleUpdate)?.titleCase ?? ''),
+                            child: Text(upgrader.updateNowText ?? upgrader.messages.message(UpgraderMessage.buttonTitleUpdate)?.titleCase ?? ''),
                             onPressed: () {
                               // Save the date/time as the last time alerted.
                               upgrader.saveLastAlerted();
