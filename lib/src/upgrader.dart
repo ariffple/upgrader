@@ -443,14 +443,20 @@ class Upgrader {
   /// Is installed version below minimum app version?
   bool belowMinAppVersion() {
     var rv = false;
-    if (minAppVersion != null) {
-      try {
-        final minVersion = Version.parse(minAppVersion!);
-        final installedVersion = Version.parse(_installedVersion!);
+
+    final minVersion = Version.parse(minAppVersion!);
+    final installedVersion = Version.parse(_installedVersion!);
+    final appStoreVersion = Version.parse(_appStoreVersion!);
+    try {
+      if (appStoreVersion.major > installedVersion.major) {
+        rv = true;
+      } else if (appStoreVersion.minor > installedVersion.minor) {
+        rv = true;
+      } else {
         rv = installedVersion < minVersion;
-      } catch (e) {
-        print(e);
       }
+    } catch (e) {
+      print(e);
     }
     return rv;
   }
