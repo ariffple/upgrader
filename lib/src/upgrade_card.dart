@@ -3,8 +3,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:upgrader/upgrader.dart';
 import 'package:recase/recase.dart';
+import 'package:upgrader/upgrader.dart';
 
 /// A widget to display the upgrade card.
 class UpgradeCard extends UpgradeBase {
@@ -15,9 +15,7 @@ class UpgradeCard extends UpgradeBase {
   final EdgeInsetsGeometry margin;
 
   /// Creates a new [UpgradeCard].
-  UpgradeCard(
-      {Key? key, Upgrader? upgrader, this.margin = const EdgeInsets.all(4.0)})
-      : super(upgrader ?? Upgrader.sharedInstance, key: key);
+  UpgradeCard({Key? key, Upgrader? upgrader, this.margin = const EdgeInsets.all(4.0)}) : super(upgrader ?? Upgrader.sharedInstance, key: key);
 
   /// Describes the part of the user interface represented by this widget.
   @override
@@ -29,21 +27,17 @@ class UpgradeCard extends UpgradeBase {
     return FutureBuilder(
         future: state.initialized,
         builder: (BuildContext context, AsyncSnapshot<bool> processed) {
-          if (processed.connectionState == ConnectionState.done &&
-              processed.data != null &&
-              processed.data!) {
+          if (processed.connectionState == ConnectionState.done && processed.data != null && processed.data!) {
             if (upgrader.shouldDisplayUpgrade()) {
               final title = upgrader.messages.message(UpgraderMessage.title);
               final message = upgrader.message();
               final releaseNotes = upgrader.releaseNotes;
-              final shouldDisplayReleaseNotes =
-                  upgrader.shouldDisplayReleaseNotes();
+              final shouldDisplayReleaseNotes = upgrader.shouldDisplayReleaseNotes();
               if (upgrader.debugLogging) {
                 print('UpgradeCard: will display');
                 print('UpgradeCard: showDialog title: $title');
                 print('UpgradeCard: showDialog message: $message');
-                print(
-                    'UpgradeCard: shouldDisplayReleaseNotes: $shouldDisplayReleaseNotes');
+                print('UpgradeCard: shouldDisplayReleaseNotes: $shouldDisplayReleaseNotes');
 
                 print('UpgradeCard: showDialog releaseNotes: $releaseNotes');
               }
@@ -56,13 +50,7 @@ class UpgradeCard extends UpgradeBase {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                            Upgrader()
-                                    .messages
-                                    .message(UpgraderMessage.releaseNotes) ??
-                                '',
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
+                        Text(Upgrader().messages.message(UpgraderMessage.releaseNotes) ?? '', style: const TextStyle(fontWeight: FontWeight.bold)),
                         Text(
                           releaseNotes,
                           maxLines: 15,
@@ -83,20 +71,14 @@ class UpgradeCard extends UpgradeBase {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(message),
-                          Padding(
-                              padding: const EdgeInsets.only(top: 15.0),
-                              child: Text(upgrader.messages
-                                      .message(UpgraderMessage.prompt) ??
-                                  '')),
+                          Padding(padding: const EdgeInsets.only(top: 15.0), child: Text(upgrader.messages.message(UpgraderMessage.prompt) ?? '')),
                           if (notes != null) notes,
                         ],
                       ),
                       actions: <Widget>[
                         if (upgrader.showIgnore)
                           TextButton(
-                              child: Text(upgrader.messages.message(
-                                      UpgraderMessage.buttonTitleIgnore)?.titleCase ??
-                                  ''),
+                              child: Text(upgrader.ignoreUpgradeText ?? upgrader.messages.message(UpgraderMessage.buttonTitleIgnore)?.titleCase ?? ''),
                               onPressed: () {
                                 // Save the date/time as the last time alerted.
                                 upgrader.saveLastAlerted();
@@ -106,9 +88,7 @@ class UpgradeCard extends UpgradeBase {
                               }),
                         if (upgrader.showLater)
                           TextButton(
-                              child: Text(upgrader.messages.message(
-                                      UpgraderMessage.buttonTitleLater)?.titleCase ??
-                                  ''),
+                              child: Text(upgrader.upgradeLaterText ?? upgrader.messages.message(UpgraderMessage.buttonTitleLater)?.titleCase ?? ''),
                               onPressed: () {
                                 // Save the date/time as the last time alerted.
                                 upgrader.saveLastAlerted();
@@ -117,9 +97,7 @@ class UpgradeCard extends UpgradeBase {
                                 state.forceUpdateState();
                               }),
                         TextButton(
-                            child: Text(upgrader.messages.message(
-                                    UpgraderMessage.buttonTitleUpdate)?.titleCase ??
-                                ''),
+                            child: Text(upgrader.upgradeNowText ?? upgrader.messages.message(UpgraderMessage.buttonTitleUpdate)?.titleCase ?? ''),
                             onPressed: () {
                               // Save the date/time as the last time alerted.
                               upgrader.saveLastAlerted();
